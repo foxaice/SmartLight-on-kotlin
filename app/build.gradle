@@ -1,0 +1,58 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 26
+    defaultConfig {
+        applicationId "me.foxaice.smartlight"
+        //todo change minimum version to api 10
+        minSdkVersion 14
+        targetSdkVersion 26
+        //todo change version name
+        versionCode 1
+        versionName "1.0"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res/layouts/screen_main',
+                    'src/main/res/layouts/screen_controllers',
+                    'src/main/res/layouts/screen_redefinition_zones',
+                    'src/main/res/layouts/screen_renaming_zones',
+                    'src/main/res/layouts/settings',
+                    'src/main/res/layouts/mode_bulb',
+                    'src/main/res/layouts/mode_disco',
+                    'src/main/res/layouts/mode_music',
+                    'src/main/res/layouts/controller_info',
+                    'src/main/res/layouts/controllers_list',
+                    'src/main/res/layouts',
+                    'src/main/res'
+            ]
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:appcompat-v7:$support_library_version"
+    implementation "com.android.support:design:$support_library_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+}
