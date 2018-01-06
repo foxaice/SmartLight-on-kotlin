@@ -15,3 +15,7 @@ const val GROUP_4 = 4L
 const val KEY_BULB_MODEL = "KEY_BULB_MODEL"
 
 const val BULB_QUANTITY = 5
+
+const val BULB_MODE_TAG = "BULB_MODE_TAG"
+const val MUSIC_MODE_TAG = "MUSIC_MODE_TAG"
+const val DISCO_MODE_TAG = "DISCO_MODE_TAG"
