@@ -5,14 +5,13 @@ import me.foxaice.smartlight.constants.*
 import me.foxaice.smartlight.entities.Bulb
 import me.foxaice.smartlight.models.interfaces.IBulbModel
 import me.foxaice.smartlight.utils.parcelableCreator
-import java.util.*
 
 
 class BulbModel : IBulbModel {
     companion object {
         @JvmField
         val CREATOR = parcelableCreator(::BulbModel)
-        val ERROR_MESSAGE = String.format(Locale.ENGLISH, "Must be between %d and %d inclusive", 0, BULB_QUANTITY - 1)
+        val ERROR_MESSAGE = "Must be between 0 and ${BULB_QUANTITY - 1} inclusive"
     }
 
     private var mCurrentBulb: Bulb
@@ -56,9 +55,7 @@ class BulbModel : IBulbModel {
 
     override fun setCurrentGroupPower(powerOn: Boolean) {
         if (mCurrentBulb.id == ALL_GROUP) {
-            for (item in mBulbs) {
-                item.isOn = powerOn
-            }
+            mBulbs.forEach { it.isOn = powerOn }
         } else {
             mCurrentBulb.isOn = powerOn
         }
@@ -69,31 +66,23 @@ class BulbModel : IBulbModel {
         mBulbs[groupId].isOn = powerOn
     }
 
-    override fun getCurrentGroup(): Long {
-        return mCurrentBulb.id
-    }
+    override fun getCurrentGroup(): Long = mCurrentBulb.id
 
-    override fun getGroupNames(): Array<String> {
+    override fun getGroupNames(): List<String> {
         if (mBulbsNames.isEmpty()) {
-            for (item in mBulbs) {
-                mBulbsNames.add(item.name)
-            }
+            mBulbs.forEach { mBulbsNames.add(it.name) }
         }
-        return mBulbsNames.toTypedArray()
+        return mBulbsNames
     }
 
-    override fun getCurrentGroupName(): String {
-        return mCurrentBulb.name
-    }
+    override fun getCurrentGroupName(): String = mCurrentBulb.name
 
     override fun getSpecificGroupName(groupId: Int): String {
         checkGroupNumberIntoRange(groupId)
         return mBulbs[groupId].name
     }
 
-    override fun isCurrentGroupOn(): Boolean {
-        return mCurrentBulb.isOn
-    }
+    override fun isCurrentGroupOn(): Boolean = mCurrentBulb.isOn
 
     override fun isSpecificGroupOn(groupId: Int): Boolean {
         checkGroupNumberIntoRange(groupId)
